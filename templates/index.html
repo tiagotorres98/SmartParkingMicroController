@@ -1,59 +1,20 @@
 <html>
 	<head>
-		{% include 'template/head.html' %}
+        {% include 'template/head.html' %}
 		<title>Arduino - Monitoramento</title>
+		<link rel="stylesheet" href="./static/css/layout.css">
 	</head>
 	<body>
-		{% include 'template/menu.html' %}
-		<form action="/command" method="POST">
-		{% if arduino == 1 %}
-			<div style="border:solid 1px black; width:100%;margin-top:10px;height:60px;padding-top:10px;" style="position:absolute">
-				<h3 style="float:left;margin-right:20px;">Controles</h3>
-				{% if sensor == 0 %}
-					<button type="submit" class="btn btn-primary" name="iniSensor" value="1" style="float:left;margin-right:10px">Iniciar Sensores</button>
-				{% else %}
-					<div class="btn btn-success" style="float:left;margin-right:10px">Sensores Iniciados</div>
-				{% endif %}
-				
-				{% if cancela == 0 %}
-				    <button type="submit" class="btn btn-success" name="abreCancela" value="1" style="float:left;margin-right:10px">Abrir Cancela</button>
-				{% else %}
-					<button type="submit" class="btn btn-warning" name="fechaCancela" value="1" style="float:left;margin-right:10px">Fechar Cancela</button>
-				{% endif %}
-				
-			</div>
-			<div style="border:solid 1px black; width:100%;margin-top:10px;height:60px;padding-top:10px;" style="position:absolute">
-				<h3 style="float:left;margin-right:20px;">Info Arduino</h3>
-				{% if arduino == 1 %}
-					<div class="btn btn-success" style="float:left;margin-right:10px">Conectado</div>
-				{% else %}
-					<div class="btn btn-danger" style="float:left;margin-right:10px">Desconectado</div>
-				{% endif %}
-			</div>
-			<div style="border:solid 1px black; width:100%;margin-top:10px;height:60px;padding-top:10px;" style="position:absolute">
-				<h3 style="float:left;margin-right:20px;">Info Sensores</h3>
-				{% if v1 == 0 %}
-					<div class="btn btn-success" style="float:left;margin-right:10px">Sensor 1 Livre</div>
-				{% else %}
-					<div class="btn btn-danger" style="float:left;margin-right:10px">Sensor 1 Em Uso</div>
-				{% endif %}
-				{% if v2 == 0 %}
-					<div class="btn btn-success" style="float:left;margin-right:10px">Sensor 2 Livre</div>
-				{% else %}
-					<div class="btn btn-danger" style="float:left;margin-right:10px">Sensor 2 Em Uso</div>
-				{% endif %}
-				{% if v3 == 0 %}
-					<div class="btn btn-success" style="float:left;margin-right:10px">Sensor 3 Livre</div>
-				{% else %}
-					<div class="btn btn-danger" style="float:left;margin-right:10px">Sensor 3 Em Uso</div>
-				{% endif %}
-			</div>
-		{% else%}
-			<div style="border:solid 1px black; width:100%;margin-top:10px;height:60px;padding-top:10px;" style="position:absolute">
-				<h3 style="float:left;margin-right:20px;color:Red;">Arduino Desconectado</h3>
-				<button type="submit" class="btn btn-success" name="conectaArd" value="1" style="float:left;margin-right:10px">Conectar</button>
-			</div>
-		{% endif %}
-		</form>
+
+       <div class="parent">
+            <div class="div1">
+                <div class="circleContainer">
+                    <img src="{{url_for('static', filename='img/logo2.png')}}" alt="" id="logo"/>
+                </div>
+            </div>
+            <div class="div2" style="overflow-y: scroll">
+            {% include 'content.html' %}
+            </div>
+        </div>
 	</body>
 </html>

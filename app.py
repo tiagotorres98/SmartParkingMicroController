@@ -10,6 +10,7 @@ from werkzeug.utils import redirect
 
 from model import IntegrationArPy
 import asyncio
+import json
 
 app = Flask(__name__)
 ar = IntegrationArPy.IntegrationArPy()
@@ -40,33 +41,86 @@ def index():
         v3=icVaga3
     )
 
+@app.route("/conectaArd", methods=['POST'])
+def conectaArd():
 
-@app.route("/command", methods=['POST'])
-def command():
-    global icCancelaLiberada, sensoresIniciados
+    data = request.data
+    result = json.loads(data)
+    print(result)
 
-    if request.form.get("conectaArd") is not None:
-        resetCon()
-        ar.start()
+    if result == True:
+        try:
+            global sensoresIniciados
+            sensoresIniciados = 0
+            ar.start()
+            return json.dumps('true')
+        except Exception as e: 
+            return json.dumps(str(e))
+    
 
-    if request.form.get("abreCancela") is not None:
-        ar.updateCancela(1)
-    elif request.form.get("fechaCancela") is not None:
-        ar.updateCancela(0)
+@app.route("/connectSensores", methods=['POST'])
+def connectSensores():
 
-    if request.form.get("iniSensor") is not None:
-        global sensoresIniciados
-        sensoresIniciados = 1
-        thread = Thread(target=iniSensor)
-        thread.daemon = True
-        thread.start()
+    data = request.data
+    result = json.loads(data)
+    print(result)
 
-    return redirect(url_for('.index'))
+    if result:
+        try:
+            global sensoresIniciados
+            sensoresIniciados = 1
+            thread = Thread(target=iniSensor)
+            thread.daemon = True
+            thread.start()
+            return json.dumps('true') 
+        except Exception as e: 
+            return json.dumps(str(e))
+    else:
+        return json.dumps('Não foi possível inciar os sensores')
+
+
+@app.route("/cancela", methods=['POST'])
+def cancela():
+
+    data = request.data
+    result = json.loads(data)
+    print(result)
+
+    try:
+        if result:
+            ar.updateCancela(1)
+        else:
+            ar.updateCancela(0)
+        return json.dumps('true')
+    except Exception as e: 
+            return json.dumps(str(e))
+
+@app.route("/getParam", methods=['GET'])
+def getParam():
+    getCancela()
+    param = {
+        'sensoresIniciados' : sensoresIniciados,
+        'icCancelaLiberada' : ar.getCancela(),
+        'arduinoConectado'  : arduinoConectado
+    }
+    return json.dumps(param)
+
+@app.route("/getVagas", methods=['GET'])
+def getVagasV():
+    vagas = ar.getVagas()
+
+    param = {
+        'icVaga1' : vagas[0],
+        'icVaga2' : vagas[1],
+        'icVaga3'  : vagas[2]
+    }
+    return json.dumps(param)
 
 
 def arduinoConnected():
     global arduinoConectado
     arduinoConectado = ar.isConected()
+    sensoresIniciados = ar.isConected()
 
 
 def getCancela():
@@ -85,9 +139,4 @@ def getVagas():
         icVaga1 = vagas[0]
         icVaga2 = vagas[1]
         icVaga3 = vagas[2]
-
-def resetCon():
-    global sensoresIniciados
-    sensoresIniciados = 0
-
 

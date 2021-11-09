@@ -1,0 +1,82 @@
+<div style="width:98%; margin:0 auto; margin-top:10px;">
+    <div class="card"  id="arduino">
+       <h5 class="card-header card-header-tt">Arduino</h5>
+       <div class="card-body">
+          <blockquote class="blockquote mb-0">
+             <div id="iniciarArduino">
+                <h1 style="float:left">Iniciar Arduino</h1>
+                <label class="switch" style="margin-left:40px; margin-top:10px;">
+                <input type="checkbox" onchange="conectaArd()"  id="conectaArd">
+                <span class="slider round"></span>
+                </label>
+             </div>
+          </blockquote>
+          <div id="conectedArd">
+             <p >Arduino conectado!</p>
+         </div>
+       </div>
+    </div>
+    <br>
+    <div class="card" id="controles">
+       <div class="card-header card-header-tt">
+          Controles
+       </div>
+       <div class="card-body">
+          <blockquote class="blockquote mb-0">
+             <div id="IniciarSensores">
+                <h1 style="float:left">Iniciar Sensores</h1>
+                <label class="switch" style="margin-left:40px; margin-top:10px;">
+                <input type="checkbox" id="connectSensores" onchange="iniciarSensores()">
+                <span class="slider round"></span>
+                </label>
+             </div>
+          </blockquote>
+          <div id="conectedArd">
+            <p >Sensores iniciados!</p>
+        </div>
+       </div>
+       <div class="card-body">
+          <blockquote class="blockquote mb-0">
+             <h1 style="float:left">Cancela</h1>
+             <label class="switch" style="margin-left:170px;">
+             <input type="checkbox" id="btnCancela" onchange="cancela()">
+             <span class="slider round"></span>
+             </label>
+          </blockquote>
+       </div>
+    </div>
+    <br>
+    <div class="card" id="sensores">
+       <div class="card-header card-header-tt">
+          Sensores
+       </div>
+       <div class="card-body">
+          <div class="center">
+             <blockquote class="blockquote mb-0">
+                <div class="card vagas">
+                   <h5 class="card-header">Vaga 1</h5>
+                   <div class="card-body colorDefault" id="v1">
+                      <h3 id="v1diponivel">Disponível</h3>
+                      <h3 id="v1indisponivel">Indisponível</h3>
+                   </div>
+                </div>
+                <div class="card vagas">
+                   <h5 class="card-header">Vaga 2</h5>
+                   <div class="card-body colorDefault" id="v2">
+                      <h3 id="v2diponivel">Disponível</h3>
+                      <h3 id="v2indisponivel">Indisponível</h3>
+                   </div>
+                </div>
+                <div class="card vagas">
+                   <h5 class="card-header">Vaga 3</h5>
+                   <div class="card-body colorDefault" id="v3">
+                      <h3 id="v3diponivel">Disponível</h3>
+                      <h3 id="v3indisponivel">Indisponível</h3>
+                   </div>
+                </div>
+             </blockquote>
+          </div>
+       </div>
+</div>
+   <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.6.0.min.js') }}"></script>
+   <script type=text/javascript src="{{ url_for('static', filename='js/main.js') }}"></script>
