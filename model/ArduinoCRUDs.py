@@ -18,7 +18,7 @@ class ArduinoCRUDs:
 
     def insert_vagas_values(self, v1, v2, v3):
         self.connect()
-        sql = "INSERT INTO tb_status_vagas (VAGA1, VAGA2, VAGA3, Last_Modified_Date) VALUES (%s, %s, %s, %s)"
+        sql = "INSERT INTO vacante_status (v1, v2, v3, last_modified_date) VALUES (%s, %s, %s, %s)"
         data = (v1, v2, v3, datetime.datetime.today())
         try:
             self.__cursor.execute(sql, data)
@@ -36,7 +36,7 @@ class ArduinoCRUDs:
 
     def getCancela(self):
         self.connect()
-        sql = "SELECT IC_LIBERADO FROM TB_STATUS_CANCELA ORDER BY ID DESC LIMIT 0,1"
+        sql = "SELECT ic_open FROM gate_status ORDER BY id DESC LIMIT 0,1"
         buffer_result = [0]
         try:
             self.__cursor.execute(sql)
@@ -58,7 +58,7 @@ class ArduinoCRUDs:
         self.connect()
         now = datetime.datetime.now()  # current date and time
         data = now.strftime("%Y-%m-%d %H:%M:%S")
-        update = "UPDATE TB_STATUS_CANCELA SET LAST_MODIFIED_DATE = '" + str(data) + "' ,IC_LIBERADO = " + str(valor)
+        update = "UPDATE gate_status SET last_modified_date = '" + str(data) + "' ,ic_open = " + str(valor)
         try:
             self.__cursor.execute(update)
         except:
@@ -71,7 +71,7 @@ class ArduinoCRUDs:
     def getVagas(self):
         sleep(1)
         self.connect()
-        sql = "SELECT VAGA1, VAGA2, VAGA3 FROM TB_STATUS_VAGAS ORDER BY ID DESC LIMIT 0,1"
+        sql = "SELECT v1, v2, v3 FROM vacante_status ORDER BY id DESC LIMIT 0,1"
         buffer_result = [0, 0, 0]
         try:
             self.__cursor.execute(sql)

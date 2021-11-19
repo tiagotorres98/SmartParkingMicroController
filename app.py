@@ -12,6 +12,7 @@ from model import IntegrationArPy
 import asyncio
 import json
 
+
 app = Flask(__name__)
 ar = IntegrationArPy.IntegrationArPy()
 #loop = asyncio.get_event_loop()

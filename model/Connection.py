@@ -11,10 +11,10 @@ class Connection:
 
     def mysqlConnection(self):
         return mysql.connector.connect(
-            host="localhost",
-            user="admin",
-            password="*Q]DmTd0]*6PlNbx",
-            database="estacionamento"
+            host="smartparking.mysql.uhserver.com",
+            user="tts",
+            password="Tuosrksti*jo1518",
+            database="smartparking"
         )
 
     def postgreConnection(self):
