@@ -16,7 +16,7 @@ function conectaArd(){
                 async: true,
                 data: JSON.stringify(value),
                 success: function(result) {
-					if(result == 'true'){
+					if(result == 'True'){
 						icArduinoConnected();
 					}
                     else{

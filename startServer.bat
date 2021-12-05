@@ -1,2 +1,1 @@
-set FLASK_ENV=development
-python -m flask run -p 3000
+python run.py runserver -p 3000
